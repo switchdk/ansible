@@ -1,0 +1,11 @@
+# file: roles/haroopad/meta/main.yml
+---
+galaxy_info:
+  author:
+  description:
+  min_ansible_version: 1.9
+  platforms:
+    - name: Generic
+  categories:
+     - system
+dependencies: []

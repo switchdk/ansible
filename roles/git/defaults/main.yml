@@ -1,0 +1,4 @@
+# file: roles/git/defaults/main.yml
+---
+#
+# foo: default

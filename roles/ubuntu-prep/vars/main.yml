@@ -1,0 +1,4 @@
+# file: roles/ubuntu-prep/vars/main.yml
+---
+#
+# foo: bar

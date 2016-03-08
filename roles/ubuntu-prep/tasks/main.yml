@@ -1,0 +1,21 @@
+---
+- name: Ensure pip and dependencies are available
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python-pip
+    - python-dev
+    - libffi-dev
+    - libssl-dev
+    - libyaml-dev
+    - build-essential
+    - python-apt
+    - aptitude
+
+- name: Update and upgrade Ubuntu packages
+  apt:
+    update_cache: yes
+    state: latest
+    upgrade: safe
+

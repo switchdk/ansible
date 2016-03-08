@@ -1,0 +1,10 @@
+# file: roles/ubuntu-prep/meta/main.yml
+---
+galaxy_info:
+  author:
+  description:
+  platforms:
+    - name: Generic
+  categories:
+     - system
+dependencies: []

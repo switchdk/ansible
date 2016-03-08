@@ -1,0 +1,9 @@
+---
+- name: install vim
+  apt: 
+    name: vim,vim-gnome
+    state: latest
+
+- name: Set VIM as default CLI editor
+  command: update-alternatives --set editor /usr/bin/vim.gnome
+

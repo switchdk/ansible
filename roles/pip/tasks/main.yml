@@ -1,0 +1,15 @@
+---
+- name: Ensure useful Python modules are available
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pip
+    - passlib
+    - ansible
+    - pyvmomi
+    - httplib2
+    - awscli
+    - requests
+    - requests[security]
+    - boto3

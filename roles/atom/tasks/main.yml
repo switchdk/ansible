@@ -1,0 +1,17 @@
+---
+- name: Determine if Atom is already installed
+  stat:
+    path: /usr/bin/atom
+  register: atom_installed
+
+- name: Download Atom
+  get_url:
+    url: https://github.com/atom/atom/releases/download/v1.3.3/atom-amd64.deb
+    dest: /tmp
+  when: atom_installed.stat.exists == False
+
+- name: Install Atom
+  apt:
+    deb: /tmp/atom-amd64.deb
+  when: atom_installed.stat.exists == False
+

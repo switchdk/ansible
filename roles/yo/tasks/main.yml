@@ -1,0 +1,37 @@
+---
+- name: Create npm installer directory
+  file:
+    path: "{{ ansible_user_dir }}/.npm-global"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0750
+
+- name: Configure npm prefix
+  command: "npm config set prefix {{ ansible_user_dir }}/.npm-global"
+
+- name: Update user environment
+  lineinfile: 
+    create: Yes
+    state: present
+    dest: "{{ ansible_user_dir }}/.profile"
+    insertafter: EOF
+    line: "{{ item }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  with_items:
+    - "export NODE_PATH=$NODE_PATH:{{ ansible_user_dir }}/.npm-global/lib/node_modules"
+    - "export PATH={{ ansible_user_dir }}/.npm-global/bin:$PATH"
+
+- name: Install Yeoman
+  command: "npm install -g yo"
+  environment:
+    NPM_CONFIG_PREFIX: "{{ ansible_user_dir }}/.npm-global"
+
+# FOR SOME REASON THE NPM MODULE DOES NOT WORK PROPERLY
+# MOST LIKELY CAUSE: https://github.com/ansible/ansible-modules-extras/issues/957
+#  npm:
+#    name: yo
+#    state: latest
+#    path: "{{ ansible_user_dir }}/.npm-global"
+

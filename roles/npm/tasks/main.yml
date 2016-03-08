@@ -1,0 +1,20 @@
+---
+- name: Add NodeSource signing key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+
+- name: Add source
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_5.x {{ ansible_distribution_release }} main
+
+- name: Install node.js
+  apt:
+    update_cache: yes
+    pkg: nodejs
+    state: latest
+
+- name: Update npm
+  npm:
+    name: npm
+    state: latest
+    global: True

@@ -1,0 +1,4 @@
+# file: roles/ubuntu-prep/defaults/main.yml
+---
+#
+# foo: default

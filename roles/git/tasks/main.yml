@@ -1,0 +1,50 @@
+---
+- name: install git
+  apt: 
+    name: git 
+    state: latest
+
+- name: Install Java for GitEye
+  apt:
+    name: default-jre
+    state: latest
+
+- name: Create GitEye directory
+  file:
+    path: /usr/local/share/giteye
+    state: directory
+
+- name: Download and extract GitEye
+  unarchive:
+    src: https://downloads-guests.open.collab.net/files/documents/61/11867/GitEye-1.11.0-linux.x86_64.zip
+    dest: /usr/local/share/giteye
+    creates: /usr/local/share/giteye/GitEye
+    copy: no
+
+- name: Include in PATH
+  file:
+    path: /usr/local/bin/giteye
+    src: /usr/local/share/giteye/GitEye
+    state: link
+  
+- name: Create user bin directory
+  become: False
+  file:
+    path: "{{ ansible_user_dir }}/bin"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: Install git-subrepo
+  become: False
+  git:
+    repo: https://github.com/ingydotnet/git-subrepo 
+    dest: "{{ ansible_user_dir }}/bin/git-subrepo"
+
+- name: Source git-subrepo
+  become: False
+  lineinfile:
+    dest: "{{ ansible_user_dir }}/.profile"
+    insertafter: EOF
+    line: "source {{ ansible_user_dir }}/bin/git-subrepo/.rc"

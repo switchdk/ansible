@@ -1,0 +1,15 @@
+---
+- name: Run local prep plays
+  hosts: localhost
+  connection: local
+  gather_facts: True
+  roles:
+    - { role: ubuntu-prep, become: yes }
+    - { role: pip, become: yes }
+    - { role: atom, become: yes }
+    - { role: haroopad, become: yes }
+    - { role: docker, become: yes }
+    - { role: git, become: yes }
+    - { role: npm, become: yes }
+    - { role: vim, become: yes }
+    - { role: yo, become: no }

@@ -1,0 +1,18 @@
+# file: roles/md/tasks/main.yml
+---
+- name: Determine if Haroopad is already installed
+  stat:
+    path: /usr/bin/haroopad
+  register: haroopad_installed
+
+- name: Download Haroopad
+  get_url:
+    url: https://bitbucket.org/rhiokim/haroopad-download/downloads/haroopad-v0.13.1-x64.deb
+    dest: /tmp
+  when: haroopad_installed.stat.exists == False
+
+- name: Install Haroopad
+  apt:
+    deb: /tmp/haroopad-v0.13.1-x64.deb
+  when: haroopad_installed.stat.exists == False
+
